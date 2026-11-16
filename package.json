@@ -1,0 +1,41 @@
+{
+  "name": "solidityguard-ai",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "blockchain"
+  ],
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev:frontend": "npm run dev --workspace frontend",
+    "test:frontend": "playwright test --config frontend/playwright.config.js",
+    "dev:backend": "npm run dev --workspace backend",
+    "build": "npm run build --workspace frontend",
+    "chain": "npm run node --workspace blockchain",
+    "check:chain": "node scripts/check-chain.js",
+    "check:compile": "node scripts/check-compile.js",
+    "compile:registry": "npm run compile --workspace blockchain",
+    "deploy:local": "npm run compile:registry && node --env-file-if-exists=backend/.env blockchain/scripts/deploy.js",
+    "test:blockchain": "node --test --test-isolation=none blockchain/test/*.test.js backend/tests/integration/*.test.js",
+    "test:all": "npm run compile:registry && npm test && npm run test:blockchain",
+    "demo:blockchain": "node --env-file-if-exists=backend/.env scripts/demo-blockchain.js",
+    "scan": "node scripts/scan.js",
+    "test": "node --test --test-isolation=none backend/tests/*.test.js",
+    "setup:local": "bash scripts/setup-local.sh",
+    "doctor": "node --env-file-if-exists=backend/.env scripts/doctor.js",
+    "package:source": "node scripts/package-source.js",
+    "validate:local": "npm run doctor && npm run test:all && npm run test:frontend && npm run build"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "hardhat": "2.29.2"
+  },
+  "overrides": {
+    "serialize-javascript": "7.1.3",
+    "tmp": "0.2.7"
+  }
+}
