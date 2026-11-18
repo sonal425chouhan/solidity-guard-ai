@@ -1,0 +1,9 @@
+{
+  "name": "@solidityguard/blockchain",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "node": "bash ../scripts/hardhat.sh node --hostname 127.0.0.1",
+    "compile": "bash ../scripts/hardhat.sh compile"
+  }
+}
